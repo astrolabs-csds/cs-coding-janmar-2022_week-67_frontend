@@ -1,11 +1,11 @@
 import NavBar from "./NavBar"
 
-function AboutScreen() {
+function AboutScreen(props) {
 
     return (
         <div>
 
-            <NavBar />
+            <NavBar {...props}/>
             <h1>About Screen</h1>
 
         </div>

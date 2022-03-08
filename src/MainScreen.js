@@ -3,10 +3,10 @@ import Hero from "./Hero";
 import Features from "./Features";
 import Footer from "./Footer";
 
-function MainScreen() {
+function MainScreen(props) {
   return (
     <div>
-      <NavBar></NavBar>
+      <NavBar {...props}></NavBar>
       <Hero></Hero>
       <Features></Features>
       <Footer></Footer>
