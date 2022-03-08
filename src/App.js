@@ -1,33 +1,15 @@
-import { useEffect, useState } from 'react';
-//import Card from "./Card";
-import SimpleButton from './SimpleButton.js'
-
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import MainScreen from './MainScreen.js';
+import AboutScreen from "./AboutScreen.js";
 
 function App() {
-
-
-    const [loggedIn, setLoggedIn] = useState(false);
-
-    useEffect(
-        function() {
-
-            if (loggedIn === true) {
-                alert("User is logged in!")
-            }
-           
-        },
-        [ loggedIn ]
-    );
-
-
-    function login() {
-        setLoggedIn(true);
-    }
-
-    return(
-        <div>
-            <button onClick={login} className='btn btn-primary'>Log In</button>
-        </div>
+    return (
+        <BrowserRouter>
+            <Switch>
+                <Route path="/" component={MainScreen} exact={true} />
+                <Route path="/about" component={AboutScreen} exact={true} />
+            </Switch>
+        </BrowserRouter>
     )
 }
 
