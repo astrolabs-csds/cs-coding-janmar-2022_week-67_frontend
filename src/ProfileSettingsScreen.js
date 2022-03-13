@@ -4,7 +4,8 @@ import { Context as UserContext } from './UserContext';
 function ProfileSettingsScreen() {
 
     // Subscribe to the Provider
-    const { firstName, lastName, email }  = useContext(UserContext);
+    const { state }  = useContext(UserContext);
+    const { firstName, lastName, email} = state;
 
     return (
         <div className="container py-5" style={{"maxWidth": "600px"}}>
@@ -18,6 +19,8 @@ function ProfileSettingsScreen() {
 
             <label>Email</label>
             <input type="text" className="form-control" defaultValue={email}/>
+
+            <button className="btn btn-primary my-3">Save Changes</button>
 
         </div>
     )

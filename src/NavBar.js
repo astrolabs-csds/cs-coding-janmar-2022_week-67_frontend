@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { Context as UserContext } from './UserContext';
 import { Link } from 'react-router-dom';
 
 function NavBar(props) {
@@ -13,6 +14,8 @@ function NavBar(props) {
     }
 
     let [ linkState, setLinkState ] = useState(initialState);
+    let { state } = useContext(UserContext);
+    let { loginStatus } = state;
 
     useEffect(
         function() {
@@ -53,8 +56,8 @@ function NavBar(props) {
                 </div>
 
                 <div className="text-end">
-                    <Link to="/profile-settings" className="btn btn-outline-light me-2">Profile Settings</Link>
-                    <button type="button" className="btn btn-warning">Sign-up</button>
+                    { loginStatus === true && <Link to="/profile-settings" className="btn btn-outline-light me-2">Profile Settings</Link>}
+                    { loginStatus === false && <Link to="/login" className="btn btn-warning">Log in</Link>}
                 </div>
             </div>
             </div>
