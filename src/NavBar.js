@@ -19,11 +19,11 @@ function NavBar(props) {
             setLinkState(
                 {
                     ...initialState,
-                    [props.match.path]: 'text-white'
+                    [props.path]: 'text-white'
                 }
             )
         },
-        [ props.match.path ]
+        [ props.path ]
     )
 
 
@@ -48,13 +48,13 @@ function NavBar(props) {
                     <li><Link to="/about" className={`nav-link px-2 ${linkState['/about']}`}>About</Link></li>
                 </ul>
 
-                <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+                <div className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
                     <input type="search" className="form-control form-control-dark" placeholder="Search..." aria-label="Search" />
-                </form>
+                </div>
 
                 <div className="text-end">
-                <button type="button" className="btn btn-outline-light me-2">Login</button>
-                <button type="button" className="btn btn-warning">Sign-up</button>
+                    <Link to="/profile-settings" className="btn btn-outline-light me-2">Profile Settings</Link>
+                    <button type="button" className="btn btn-warning">Sign-up</button>
                 </div>
             </div>
             </div>
