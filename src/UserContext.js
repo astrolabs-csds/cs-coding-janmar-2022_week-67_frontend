@@ -7,24 +7,34 @@ export const Context = createContext();
 
 // Create an initial state
 const initialState = {
-    "firstName": "",
-    "lastName": "",
-    "email": "",
-    "loginStatus": false
+    "firstName": localStorage.getItem('firstName') || "",
+    "lastName": localStorage.getItem('lastName') || "",
+    "email": localStorage.getItem('email') || "",
+    "avatar":  localStorage.getItem('avatar') || null,
+    "jsonwebtoken": localStorage.getItem('jsonwebtoken') || undefined,
+    "loginStatus": localStorage.getItem('jsonwebtoken') ? true : false,
 }
 
 // Declare the actions
 const UPDATE_USER = 'UPDATE_USER';
+const LOGOUT = 'LOGOUT';
 
 
 function reducer(state=false, action) {
     if (action.type === UPDATE_USER) {
-
-        console.log(action)
-
         return {
             ...state,
             ...action.payload
+        }
+    }
+    if (action.type === LOGOUT) {
+        return {
+            "firstName": "",
+            "lastName": "",
+            "email": "",
+            "avatar": null,
+            "jsonwebtoken": undefined,
+            "loginStatus": false
         }
     }
 };
@@ -38,19 +48,44 @@ export function UserContextProvider(props) {
     const setUserState = useCallback(
         function(payload) {
 
-            const theAction = {
-                type: UPDATE_USER,
-                payload: {
-                    firstName: payload.firstName,
-                    lastName: payload.lastName,
-                    email: payload.email,
-                    loginStatus: payload.loginStatus
+
+
+            // If user logs in
+            if (payload.loginStatus === true) {
+                // Put the details of user in localStorage
+                localStorage.setItem('firstName', payload.firstName);
+                localStorage.setItem('lastName', payload.lastName);
+                localStorage.setItem('email', payload.email);
+                localStorage.setItem('avatar', payload.avatar);
+                localStorage.setItem('jsonwebtoken', payload.jsonwebtoken);
+
+                const theAction = {
+                    type: UPDATE_USER,
+                    payload: payload
                 }
+
+                dispatch(
+                    theAction
+                );
+          
+            } 
+            // If user logs out
+            else {
+
+                // Clear the session storage
+                localStorage.clear();
+
+                // Dispatch an empty object for the state
+                const theAction = {
+                    type: LOGOUT,
+                }
+
+                dispatch(
+                    theAction
+                ); 
             }
 
-            dispatch(
-                theAction
-            );
+            
 
         },
         [ dispatch ]

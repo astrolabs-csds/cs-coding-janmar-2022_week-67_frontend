@@ -14,7 +14,7 @@ function NavBar(props) {
     }
 
     let [ linkState, setLinkState ] = useState(initialState);
-    let { state } = useContext(UserContext);
+    let { state, setUserState } = useContext(UserContext);
     let { loginStatus } = state;
 
     useEffect(
@@ -27,7 +27,16 @@ function NavBar(props) {
             )
         },
         [ props.path ]
-    )
+    );
+
+    function logout() {
+        setUserState(
+            {
+                ...state,
+                loginStatus: false
+            }
+        );
+    };
 
 
     return (
@@ -58,6 +67,7 @@ function NavBar(props) {
                 <div className="text-end">
                     { loginStatus === true && <Link to="/profile-settings" className="btn btn-outline-light me-2">Profile Settings</Link>}
                     { loginStatus === false && <Link to="/login" className="btn btn-warning">Log in</Link>}
+                    { loginStatus === true && <button onClick={logout} className='btn btn-danger'>Log out</button> }
                 </div>
             </div>
             </div>
